@@ -35,8 +35,6 @@ let itemAdded = false;
     }
     else{
         for(let i = 0; i < inventory.length; i++){
-            console.log(foundItem);
-            console.log(inventory[i]);
             if(inventory[i].getName() == "empty" && !itemAdded){
                 inventory[i] = foundItem;
                 itemAdded = true;

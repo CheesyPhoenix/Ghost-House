@@ -253,8 +253,6 @@ function GameOver() {
 
 function SelectRoom() {
     let room = weightedRoomTypes[Math.floor(Math.random() * weightedRoomTypes.length)];
-    console.log(room);
-    console.log(weightedRoomTypes);
     if(room == "Normal"){
         PickADoor();
     }
