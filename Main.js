@@ -242,7 +242,6 @@ function GameOver() {
 
 function SelectRoom() {
 	CalculateRoomWeights();
-	console.log(weightedRoomTypes);
 	let room =
 		weightedRoomTypes[Math.floor(Math.random() * weightedRoomTypes.length)];
 	if (room == "Normal") {
