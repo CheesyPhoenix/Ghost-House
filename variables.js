@@ -5,6 +5,7 @@ let line4 = document.getElementById("MainLn4");
 let tooltip = document.getElementById("Tooltip");
 let scoreText = document.getElementById("Score");
 let healthText = document.getElementById("Health");
+let effectText = document.getElementById("Effect");
 let _line2;
 let _line1;
 let _line4;
@@ -15,6 +16,7 @@ let inventory = [];
 let health = 3;
 let empty = new Item("empty", 0, "empty", 0);
 let statusEffect = "None";
+let statusTimer = 0;
 let score = 0;
 let state = "NewGame";
 let roomTypes = ["Normal", "ChestRoom"];
@@ -41,6 +43,7 @@ function GenerateItems() {
 		new Item("Lucky four-leaf clover", 1, "Luck", 2, 4),
 		new Item("Point Doubler", 1, "Score Multiplier", 2, 2),
 		new Item("Point Tripler", 1, "Score Multiplier", 3, 1),
+		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 3),
 	];
 	weightedItemTypes = [];
 	for (let i = 0; i < itemTypes.length; i++) {

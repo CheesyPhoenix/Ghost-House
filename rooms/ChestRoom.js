@@ -22,7 +22,7 @@ function OpenChest() {
 	foundItem =
 		weightedItemTypes[Math.floor(Math.random() * weightedItemTypes.length)];
 
-	line3.innerText = `You found a ${foundItem.name}`;
+	line3.innerText = `You found a "${foundItem.name}"`;
 
 	for (let i = 0; i < inventory.length; i++) {
 		if (inventory[i].name == foundItem.name) {
