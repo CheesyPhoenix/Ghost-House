@@ -19,9 +19,14 @@ let statusEffect = "None";
 let statusTimer = 0;
 let score = 0;
 let state = "NewGame";
-let roomTypes = ["Normal", "ChestRoom"];
-let roomWeights = [5, 1];
+let roomTypes = ["Normal", "ChestRoom", "Rooom"];
+let roomWeights = [5, 1, 2];
 let weightedRoomTypes = [];
+let hand = "Empty";
+let hasEncounteredBoss = false;
+let bossHealth = 1000;
+let standardBossHealth = 20;
+let returnState = "None";
 
 function CalculateRoomWeights() {
 	weightedRoomTypes = [];
@@ -35,15 +40,17 @@ function CalculateRoomWeights() {
 let itemTypes = [];
 let weightedItemTypes = [];
 let foundItem;
+let foundItem2;
 
 function GenerateItems() {
 	itemTypes = [
-		new Item("HealthUp", 1, "Health", 5, 5),
-		new Item("Mysterious Potion", 1, "Health", -2, 5),
-		new Item("Lucky four-leaf clover", 1, "Luck", 2, 4),
-		new Item("Point Doubler", 1, "Score Multiplier", 2, 2),
-		new Item("Point Tripler", 1, "Score Multiplier", 3, 1),
-		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 3),
+		new Item("HealthUp", 1, "Health", 5, 10),
+		new Item("Mysterious Potion", 1, "Health", -2, 10),
+		new Item("Lucky four-leaf clover", 1, "Luck", 2, 3),
+		new Item("Point Doubler", 1, "Score Multiplier", 2, 4),
+		new Item("Point Tripler", 1, "Score Multiplier", 3, 3),
+		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 5),
+		new Item("GoldCoin", 1, "Currency", 10, 2),
 	];
 	weightedItemTypes = [];
 	for (let i = 0; i < itemTypes.length; i++) {

@@ -9,7 +9,7 @@ function Intro() {
 		state = "Intro";
 		setTimeout(() => {
 			state = "Starting";
-		}, 3000);
+		}, 1000);
 		score = 0;
 		health = 3;
 		healthText.innerText = "Health: " + health;
@@ -43,11 +43,13 @@ function Button1() {
 	} else if (state == "ChestRoom") {
 		OpenChest();
 	} else if (state == "Swap") {
-		SwapSelect_Chest();
+		SwapSelect();
 	} else if (state == "Swapping") {
-		Swap_Chest(0);
+		Swap(0);
 	} else if (state == "InInv") {
 		UseItem(0);
+	} else if (state == "TradingHall") {
+		Trade();
 	}
 }
 function Button2() {
@@ -60,9 +62,11 @@ function Button2() {
 	} else if (state == "NewRoom") {
 		SelectRoom();
 	} else if (state == "Swapping") {
-		Swap_Chest(1);
+		Swap(1);
 	} else if (state == "InInv") {
 		UseItem(1);
+	} else if (state == "TradingHall") {
+		PickPocket();
 	}
 }
 function Button3() {
@@ -79,9 +83,11 @@ function Button3() {
 	} else if (state == "Swap") {
 		NewRoom();
 	} else if (state == "Swapping") {
-		Swap_Chest(2);
+		Swap(2);
 	} else if (state == "InInv") {
 		UseItem(2);
+	} else if (state == "TradingHall") {
+		NextRoom_TradingHall();
 	}
 }
 
@@ -103,7 +109,7 @@ function OpenInventory() {
 	state = "Delay";
 	setTimeout(() => {
 		state = "InInv";
-	}, 1500);
+	}, 1000);
 
 	line1.innerText = "Your inventory:";
 	line2.innerHTML = `Slot 1: ${inventory[0].name} - ${inventory[0].amount}`;
@@ -146,7 +152,7 @@ function PickADoor() {
 	state = "Delay";
 	setTimeout(() => {
 		state = "PickADoor";
-	}, 1500);
+	}, 1000);
 	Clear();
 
 	line1.innerText = "You enter the ghost house and approach 3 doors";
@@ -187,7 +193,7 @@ function NewRoom() {
 	state = "Delay";
 	setTimeout(() => {
 		state = "NewRoom";
-	}, 1500);
+	}, 1000);
 	score++;
 	statusTimer--;
 	if (statusTimer <= 0) {
@@ -238,8 +244,8 @@ function GameOver() {
 		state = "Delay";
 		setTimeout(() => {
 			state = "NewGame";
-		}, 1500);
-	}, 2000);
+		}, 1000);
+	}, 1000);
 }
 
 function SelectRoom() {
@@ -250,6 +256,8 @@ function SelectRoom() {
 		PickADoor();
 	} else if (room == "ChestRoom") {
 		ChestRoom();
+	} else if (room == "TradingHall") {
+		TradingHall();
 	}
 }
 
@@ -260,5 +268,89 @@ function updateEffects() {
 	}
 	effectText.innerText =
 		"Effect: " + statusEffect + ": " + statusTimer + " turns remaining";
-	console.log(statusEffect);
+}
+
+function GiveItem(item, line, rtrnState) {
+	let itemAdded = false;
+	_line1 = line1.innerText;
+	_line2 = line2.innerText;
+	_line3 = line3.innerText;
+	_line4 = line4.innerText;
+	_tooltip = tooltip.innerText;
+	returnState = rtrnState;
+
+	for (let i = 0; i < inventory.length; i++) {
+		if (inventory[i].name == item.name) {
+			inventory[i].amount += item.amount;
+			itemAdded = true;
+		}
+	}
+
+	if (itemAdded) {
+		line.innerText = "The item  was added to your inventory";
+		setTimeout(() => {
+			line1.innerText = _line1;
+			line2.innerText = _line2;
+			line3.innerText = _line3;
+			line4.innerText = _line4;
+			tooltip.innerText = _tooltip;
+			state = returnState;
+		}, 1000);
+	} else {
+		for (let i = 0; i < inventory.length; i++) {
+			if (inventory[i].name == "empty" && !itemAdded) {
+				inventory[i] = foundItem;
+				itemAdded = true;
+			}
+		}
+		if (itemAdded) {
+			line.innerText = "The item  was added to your inventory";
+			setTimeout(() => {
+				line1.innerText = _line1;
+				line2.innerText = _line2;
+				line3.innerText = _line3;
+				line4.innerText = _line4;
+				tooltip.innerText = _tooltip;
+				state = returnState;
+			}, 1000);
+		} else {
+			state = "Swap";
+			line.innerText =
+				"Your inventory is full. Want to swap with another item?";
+			tooltip.innerText = "Press 1 to swap, Press 3 to cancel";
+		}
+	}
+}
+
+function SwapSelect() {
+	state = "Swapping";
+
+	Clear();
+	line1.innerText = "Your inventory:";
+	line2.innerHTML = `Slot 1: ${inventory[0].name} - ${inventory[0].amount}`;
+	line3.innerText = `Slot 2: ${inventory[1].name} - ${inventory[1].amount}`;
+	line4.innerText = `Slot 3: ${inventory[2].name} - ${inventory[2].amount}`;
+	tooltip.innerText = "Select item to swap: 1, 2 or 3";
+}
+
+function Swap(num) {
+	inventory[num] = foundItem;
+	foundItem = new Item("empty", 0, "empty", 0);
+	Clear();
+	line1.innerText = `Swapped with slot ${num.toString()}`;
+	setTimeout(() => {
+		line1.innerText = _line1;
+		line2.innerText = _line2;
+		line3.innerText = _line3;
+		line4.innerText = _line4;
+		tooltip.innerText = _tooltip;
+		state = returnState;
+	}, 1000);
+}
+
+function NewState(newState) {
+	state = "Delay";
+	setTimeout(() => {
+		state = newState;
+	}, 1000);
 }
