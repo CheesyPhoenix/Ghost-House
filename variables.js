@@ -22,7 +22,7 @@ let state = "NewGame";
 let roomTypes = ["Normal", "ChestRoom", "Rooom"];
 let roomWeights = [5, 1, 2];
 let weightedRoomTypes = [];
-let hand = new Weapon("Hand", 1);
+let hand = new Weapon("Hand", 1, 0);
 let hasEncounteredBoss = false;
 let bossHealth = 1000;
 let bossDamage = 10;
@@ -98,4 +98,7 @@ function GenerateLootTables() {
 		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 15),
 		new Item("GoldCoin", 1, "Currency", 10, 20),
 	];
+	lootTable_Weapon_Rare = [];
+	lootTable_Weapon_Epic = [];
+	lootTable_Weapon_Legendary = [];
 }
