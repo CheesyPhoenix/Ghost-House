@@ -22,9 +22,10 @@ let state = "NewGame";
 let roomTypes = ["Normal", "ChestRoom", "Rooom"];
 let roomWeights = [5, 1, 2];
 let weightedRoomTypes = [];
-let hand = "Empty";
+let hand = new Weapon("Hand", 1);
 let hasEncounteredBoss = false;
 let bossHealth = 1000;
+let bossDamage = 10;
 let standardBossHealth = 20;
 let returnState = "None";
 
@@ -60,3 +61,41 @@ function GenerateItems() {
 	}
 }
 GenerateItems();
+
+let lootTable_Rare = [];
+let lootTable_Epic = [];
+let lootTable_Legendary = [];
+
+let lootTable_Weapon_Rare = [];
+let lootTable_Weapon_Epic = [];
+let lootTable_Weapon_Legendary = [];
+
+function GenerateLootTables() {
+	lootTable_Rare = [
+		new Item("HealthUp", 1, "Health", 5, 3),
+		new Item("Mysterious Potion", 1, "Health", -2, 3),
+		new Item("Lucky four-leaf clover", 1, "Luck", 2, 7),
+		new Item("Point Doubler", 1, "Score Multiplier", 2, 7),
+		new Item("Point Tripler", 1, "Score Multiplier", 3, 6),
+		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 8),
+		new Item("GoldCoin", 1, "Currency", 10, 5),
+	];
+	lootTable_Epic = [
+		new Item("HealthUp", 1, "Health", 5, 1),
+		new Item("Mysterious Potion", 1, "Health", -2, 1),
+		new Item("Lucky four-leaf clover", 1, "Luck", 2, 15),
+		new Item("Point Doubler", 1, "Score Multiplier", 2, 15),
+		new Item("Point Tripler", 1, "Score Multiplier", 3, 14),
+		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 15),
+		new Item("GoldCoin", 1, "Currency", 10, 15),
+	];
+	lootTable_Legendary = [
+		new Item("HealthUp", 1, "Health", 5, 0),
+		new Item("Mysterious Potion", 1, "Health", -2, 0),
+		new Item("Lucky four-leaf clover", 1, "Luck", 2, 10),
+		new Item("Point Doubler", 1, "Score Multiplier", 2, 10),
+		new Item("Point Tripler", 1, "Score Multiplier", 3, 20),
+		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 15),
+		new Item("GoldCoin", 1, "Currency", 10, 20),
+	];
+}

@@ -50,6 +50,10 @@ function Button1() {
 		UseItem(0);
 	} else if (state == "TradingHall") {
 		Trade();
+	} else if (state == "BossRoom") {
+		AttackBoss();
+	} else if (state == "AttackBoss") {
+		AttackBoss();
 	}
 }
 function Button2() {
@@ -180,7 +184,7 @@ function EnterDoor(num) {
 
 function Damage(line, num) {
 	if (statusEffect == "Evasion" && Math.floor(Math.random()) == 1) {
-		line.innerText = `You, however, evaded the attack and took no damage, you now have ${health} health`;
+		line.innerText = `However, you, evaded the attack and took no damage, you now have ${health} health`;
 		healthText.innerText = "Health: " + health;
 		return;
 	}
