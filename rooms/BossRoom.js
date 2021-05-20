@@ -35,6 +35,9 @@ function AttackBoss() {
 	} else {
 		line3.innerText = "The boss fought back";
 		Damage(line4, bossDamage);
+		if (health <= 0) {
+			GameOver();
+		}
 		tooltip.innerText =
 			"You can now: 1: Attack the boss again  2: Run away  3: Try to sneak past the boss";
 	}
@@ -49,6 +52,9 @@ function SneakPastBoss() {
 	line1.innerText =
 		"You sneaked past the boss, but the boss managed to get a swing at you";
 	Damage(line2, bossDamage);
+	if (health <= 0) {
+		GameOver();
+	}
 	score += 5;
 	NewRoom();
 }
@@ -60,4 +66,11 @@ function BossReward() {
 	line2.innerText =
 		"After the corpse has fully desintegrated a chest appears infornt of you";
 	line3.innerText = "You open the chest";
+
+	foundItem =
+		weightedLootTable_Rare[
+			Math.floor(Math.random() * weightedLootTable_Rare.length)
+		];
+	GiveItem(foundItem, line4, "BossReward");
+	NewRoom();
 }

@@ -54,6 +54,8 @@ function Button1() {
 		AttackBoss();
 	} else if (state == "AttackBoss") {
 		AttackBoss();
+	} else if (state == "Trade") {
+		completeTrade(1);
 	}
 }
 function Button2() {
@@ -71,6 +73,10 @@ function Button2() {
 		UseItem(1);
 	} else if (state == "TradingHall") {
 		PickPocket();
+	} else if (state == "Trade") {
+		completeTrade(2);
+	} else if (state == "BossRoom") {
+		Run_Boss();
 	}
 }
 function Button3() {
@@ -92,6 +98,10 @@ function Button3() {
 		UseItem(2);
 	} else if (state == "TradingHall") {
 		NextRoom_TradingHall();
+	} else if (state == "Trade") {
+		NewRoom();
+	} else if (state == "BossRoom") {
+		SneakPastBoss();
 	}
 }
 
@@ -100,7 +110,7 @@ function OpenInventory() {
 		CloseInventory();
 		return;
 	}
-	if (state != "NewRoom") return;
+	if (state != "NewRoom" && state != "Trade") return;
 	_line1 = line1.innerText;
 	_line2 = line2.innerText;
 	_line3 = line3.innerText;
@@ -229,8 +239,8 @@ function UseItem(itemSlot) {
 		statusEffect = "Evasion";
 		statusTimer = inventory[itemSlot].effect;
 		updateEffects();
+	} else if (inventory[itemSlot].type == "Weapon") {
 	}
-
 	inventory[itemSlot].remove(1);
 	if (inventory[itemSlot].amount <= 0) {
 		inventory[itemSlot] = new Item("empty", 0, "empty", 0);
@@ -262,6 +272,8 @@ function SelectRoom() {
 		ChestRoom();
 	} else if (room == "TradingHall") {
 		TradingHall();
+	} else if (room == "BossRoom") {
+		BossRoom();
 	}
 }
 

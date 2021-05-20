@@ -19,8 +19,8 @@ let statusEffect = "None";
 let statusTimer = 0;
 let score = 0;
 let state = "NewGame";
-let roomTypes = ["Normal", "ChestRoom", "Rooom"];
-let roomWeights = [5, 1, 2];
+let roomTypes = ["Normal", "ChestRoom", "TradingHall", "BossRoom"];
+let roomWeights = [5, 1, 1, 1];
 let weightedRoomTypes = [];
 let hand = new Weapon("Hand", 1, 0);
 let hasEncounteredBoss = false;
@@ -50,7 +50,7 @@ function GenerateItems() {
 		new Item("Lucky four-leaf clover", 1, "Luck", 2, 3),
 		new Item("Point Doubler", 1, "Score Multiplier", 2, 4),
 		new Item("Point Tripler", 1, "Score Multiplier", 3, 3),
-		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 5),
+		new Item("Evasion Gel", 1, "EvasionStatusEf", 10, 5),
 		new Item("GoldCoin", 1, "Currency", 10, 2),
 	];
 	weightedItemTypes = [];
@@ -61,44 +61,3 @@ function GenerateItems() {
 	}
 }
 GenerateItems();
-
-let lootTable_Rare = [];
-let lootTable_Epic = [];
-let lootTable_Legendary = [];
-
-let lootTable_Weapon_Rare = [];
-let lootTable_Weapon_Epic = [];
-let lootTable_Weapon_Legendary = [];
-
-function GenerateLootTables() {
-	lootTable_Rare = [
-		new Item("HealthUp", 1, "Health", 5, 3),
-		new Item("Mysterious Potion", 1, "Health", -2, 3),
-		new Item("Lucky four-leaf clover", 1, "Luck", 2, 7),
-		new Item("Point Doubler", 1, "Score Multiplier", 2, 7),
-		new Item("Point Tripler", 1, "Score Multiplier", 3, 6),
-		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 8),
-		new Item("GoldCoin", 1, "Currency", 10, 5),
-	];
-	lootTable_Epic = [
-		new Item("HealthUp", 1, "Health", 5, 1),
-		new Item("Mysterious Potion", 1, "Health", -2, 1),
-		new Item("Lucky four-leaf clover", 1, "Luck", 2, 15),
-		new Item("Point Doubler", 1, "Score Multiplier", 2, 15),
-		new Item("Point Tripler", 1, "Score Multiplier", 3, 14),
-		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 15),
-		new Item("GoldCoin", 1, "Currency", 10, 15),
-	];
-	lootTable_Legendary = [
-		new Item("HealthUp", 1, "Health", 5, 0),
-		new Item("Mysterious Potion", 1, "Health", -2, 0),
-		new Item("Lucky four-leaf clover", 1, "Luck", 2, 10),
-		new Item("Point Doubler", 1, "Score Multiplier", 2, 10),
-		new Item("Point Tripler", 1, "Score Multiplier", 3, 20),
-		new Item("Evasion Gel", 1, "EvasionStatusEf", 5, 15),
-		new Item("GoldCoin", 1, "Currency", 10, 20),
-	];
-	lootTable_Weapon_Rare = [];
-	lootTable_Weapon_Epic = [];
-	lootTable_Weapon_Legendary = [];
-}
