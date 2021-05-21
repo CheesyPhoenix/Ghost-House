@@ -5,10 +5,6 @@ let weightedLootTable_Rare = [];
 let weightedLootTable_Epic = [];
 let weightedLootTable_Legendary = [];
 
-let lootTable_Weapon_Rare = [];
-let lootTable_Weapon_Epic = [];
-let lootTable_Weapon_Legendary = [];
-
 function GenerateLootTables() {
 	lootTable_Rare = [
 		new Item("HealthUp", 1, "Health", 5, 3),
@@ -56,8 +52,4 @@ function GenerateLootTables() {
 			weightedLootTable_Legendary.push(lootTable_Legendary[i]);
 		}
 	}
-
-	lootTable_Weapon_Rare = [];
-	lootTable_Weapon_Epic = [];
-	lootTable_Weapon_Legendary = [];
 }

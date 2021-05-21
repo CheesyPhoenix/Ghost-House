@@ -182,10 +182,9 @@ function EnterDoor(num) {
 	} else if (ghostDoor == num) {
 		line2.innerText = "The ghost was hiding behind that door";
 		Damage(line3, 1);
-		if (health <= 0) {
-			GameOver();
+		if (state != "GameOver") {
+			NewRoom();
 		}
-		NewRoom();
 	}
 }
 
@@ -198,6 +197,9 @@ function Damage(line, num) {
 	health -= num;
 	line.innerText = `You took ${num.toString()} damage, you now have ${health} health`;
 	healthText.innerText = "Health: " + health;
+	if (health <= 0) {
+		GameOver();
+	}
 }
 
 function NewRoom() {
@@ -237,6 +239,7 @@ function UseItem(itemSlot) {
 		statusTimer = inventory[itemSlot].effect;
 		updateEffects();
 	} else if (inventory[itemSlot].type == "Weapon") {
+		hand = new Weapon(inventory[itemSlot].name, inventory[itemSlot].effect);
 	}
 	inventory[itemSlot].remove(1);
 	if (inventory[itemSlot].amount <= 0) {

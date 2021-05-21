@@ -1,6 +1,9 @@
 body {
 	font-family: eater;
 	margin: 0%;
+	background-color: rgb(207, 207, 207);
+	overflow: hidden;
+	transition-duration: 0.2s;
 }
 .title {
 	width: 100%;
@@ -33,6 +36,14 @@ body {
 	padding: 0.5%;
 	background-color: #333;
 	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+.tooltip {
+	position: absolute;
+	bottom: 3em;
+	height: auto;
+	margin: 1%;
 }
 
 .button {
@@ -44,14 +55,14 @@ body {
 	text-align: center;
 	text-decoration: none;
 	font-size: 16px;
-	width: 2%;
-	height: 2%;
+	width: 2em;
+	height: 2em;
 	border-radius: 2px;
 	transition-duration: 0.2s;
 }
 .button:hover {
 	background-color: dodgerblue;
-	width: 2.5%;
+	width: 2.5em;
 }
 .buttonInv {
 	margin-left: 1.5%;
@@ -63,14 +74,14 @@ body {
 	text-align: center;
 	text-decoration: none;
 	font-size: 16px;
-	width: 9%;
-	height: 2%;
+	width: 9em;
+	height: 2em;
 	border-radius: 2px;
 	transition-duration: 0.2s;
 }
 .buttonInv:hover {
 	background-color: dodgerblue;
-	width: 10%;
+	width: 10em;
 }
 h1 {
 	display: inline;
