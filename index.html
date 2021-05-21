@@ -6,65 +6,58 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Ghost House</title>
 		<script src="https://use.edgefonts.net/eater.js"></script>
-		<style>
-			body {
-				font-family: eater;
-			}
-		</style>
+		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
-		<h1 style="display: inline">Ghost House</h1>
-		<h3 style="display: inline; margin-left: 10px" id="Score">Score: 0</h3>
-		<h3 style="display: inline; margin-left: 10px" id="Health">
-			Health: 3
-		</h3>
-		<h3 style="display: inline; margin-left: 10px" id="Effect">
-			Effect: None
-		</h3>
-		<h3 style="display: inline; margin-left: 10px" id="Hand">Hand: None</h3>
+		<div class="title">
+			<h1>Ghost House</h1>
+		</div>
 
-		<div style="height: 1em">
-			<p id="MainLn1">Line 1</p>
+		<div class="info">
+			<h3 id="Score">Score: 0</h3>
+			<h3 id="Health">Health: 3</h3>
+			<h3 id="Effect">Effect: None</h3>
+			<h3 id="Hand">Hand: None</h3>
 		</div>
-		<div style="height: 1em">
-			<p id="MainLn2"></p>
-		</div>
-		<div style="height: 1em">
-			<p id="MainLn3">Line 1</p>
-		</div>
-		<div style="height: 1em">
-			<p id="MainLn4">Line 1</p>
+
+		<div class="main">
+			<div class="line">
+				<p id="MainLn1">Line 1</p>
+			</div>
+			<div class="line">
+				<p id="MainLn2"></p>
+			</div>
+			<div class="line">
+				<p id="MainLn3">Line 1</p>
+			</div>
+			<div class="line">
+				<p id="MainLn4">Line 1</p>
+			</div>
 		</div>
 		<br />
-		<button
-			id="button1"
-			style="display: inline; font-family: eater"
-			onclick="Button1()"
-		>
-			1
-		</button>
-		<button
-			id="button2"
-			style="display: inline; font-family: eater"
-			onclick="Button2()"
-		>
-			2
-		</button>
-		<button
-			id="button3"
-			style="display: inline; font-family: eater"
-			onclick="Button3()"
-		>
-			3
-		</button>
-		<button
-			id="buttonInv"
-			style="display: inline; margin-left: 15px; font-family: eater"
-			onclick="OpenInventory();"
-		>
-			Inventory
-		</button>
-		<p id="Tooltip">This is a Tooltip</p>
+		<div id="inputContainer">
+			<div class="input">
+				<button class="button" id="button1" onclick="Button1()">
+					1
+				</button>
+				<button class="button" id="button2" onclick="Button2()">
+					2
+				</button>
+				<button class="button" id="button3" onclick="Button3()">
+					3
+				</button>
+				<button
+					class="buttonInv"
+					id="buttonInv"
+					onclick="OpenInventory();"
+				>
+					Inventory
+				</button>
+			</div>
+		</div>
+		<div class="line">
+			<p id="Tooltip">This is a Tooltip</p>
+		</div>
 
 		<!--Classes-->
 		<script src="Item.js"></script>

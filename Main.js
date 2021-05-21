@@ -119,11 +119,8 @@ function OpenInventory() {
 	_tooltip = tooltip.innerText;
 
 	Clear();
+	NewState("InInv");
 	//////////////////
-	state = "Delay";
-	setTimeout(() => {
-		state = "InInv";
-	}, 1000);
 
 	line1.innerText = "Your inventory:";
 	line2.innerHTML = `Slot 1: ${inventory[0].name} - ${inventory[0].amount}`;
@@ -150,7 +147,7 @@ function CloseInventory() {
 	line2.innerText = _line2;
 	line3.innerText = _line3;
 	line4.innerText = _line4;
-	state = _state;
+	NewState(_state);
 	tooltip.innerText = _tooltip;
 }
 
