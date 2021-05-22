@@ -64,7 +64,7 @@ function GenerateItems() {
 GenerateItems();
 
 const casinoPrizes = ["Nothing", 1, 1.5, 2, 3, 10];
-const casinoWeights = [10, 5, 4, 3, 2, 1];
+const casinoWeights = [15, 5, 4, 3, 2, 1];
 const weightedCasinoPrizes = [];
 
 for (let i = 0; i < casinoPrizes.length; i++) {
