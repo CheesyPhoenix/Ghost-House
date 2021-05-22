@@ -72,7 +72,7 @@ function completeTrade(num) {
 			"The goblin got offended by you not having that item, he sends you to the next room.";
 		NewRoom();
 	} else if (
-		num == 1 &&
+		num == 2 &&
 		!inventory.includes(new Item("GoldCoin", 1, "Currency", 10, 2))
 	) {
 		line1.innerText =

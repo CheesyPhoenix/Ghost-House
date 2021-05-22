@@ -23,5 +23,7 @@ function OpenChest() {
 	line3.innerText = `You found a "${foundItem.name}"`;
 
 	GiveItem(foundItem, line4, "OpenChest");
-	NewRoom();
+	setTimeout(() => {
+		NewRoom();
+	}, 1000);
 }

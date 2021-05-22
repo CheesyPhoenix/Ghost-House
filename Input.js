@@ -36,6 +36,14 @@ function Button1() {
 		case "Trade":
 			completeTrade(1);
 			break;
+		case "EnterCasino":
+			Gamble();
+			break;
+		case "Gamble":
+			PerformGamble(1);
+			break;
+		case "PerformGamble":
+			ReGamble();
 	}
 }
 function Button2() {
@@ -61,11 +69,14 @@ function Button2() {
 		case "TradingHall":
 			PickPocket();
 			break;
-		case "BossRoom" && "AttackBoss":
+		case "BossRoom" || "AttackBoss":
 			Run_Boss();
 			break;
 		case "Trade":
 			completeTrade(2);
+			break;
+		case "Gamble":
+			PerformGamble(10);
 			break;
 	}
 }
@@ -98,11 +109,19 @@ function Button3() {
 		case "TradingHall":
 			NextRoom_TradingHall();
 			break;
-		case "BossRoom" && "AttackBoss":
+		case "BossRoom" || "AttackBoss":
 			SneakPastBoss();
 			break;
 		case "Trade":
 			NewRoom();
 			break;
+		case "EnterCasino":
+			Continue_Casino();
+			break;
+		case "Gamble":
+			PerformGamble(Math.max(Math.floor(score / 2), 1));
+			break;
+		case "PerformGamble":
+			Leave_Casino();
 	}
 }

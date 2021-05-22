@@ -1,7 +1,6 @@
 function BossRoom() {
 	Clear();
 
-	state = "Delay";
 	NewState("BossRoom");
 
 	if (hasEncounteredBoss) {

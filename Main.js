@@ -166,6 +166,7 @@ function UseItem(itemSlot) {
 		updateEffects();
 	} else if (inventory[itemSlot].type == "Weapon") {
 		hand = new Weapon(inventory[itemSlot].name, inventory[itemSlot].effect);
+		UpdateInfobar();
 	}
 	inventory[itemSlot].remove(1);
 	if (inventory[itemSlot].amount <= 0) {
@@ -200,6 +201,8 @@ function SelectRoom() {
 		TradingHall();
 	} else if (room == "BossRoom") {
 		BossRoom();
+	} else if (room == "Casino") {
+		EnterCasino();
 	}
 }
 
@@ -220,6 +223,7 @@ function GiveItem(item, line, rtrnState) {
 	_line4 = line4.innerText;
 	_tooltip = tooltip.innerText;
 	returnState = rtrnState;
+	NewState("GivingItem");
 
 	for (let i = 0; i < inventory.length; i++) {
 		if (inventory[i].name == item.name) {
@@ -235,8 +239,8 @@ function GiveItem(item, line, rtrnState) {
 			line2.innerText = _line2;
 			line3.innerText = _line3;
 			line4.innerText = _line4;
-			tooltip.innerText = _tooltip;
 			state = returnState;
+			line.innerText = "The item  was added to your inventory";
 		}, 1000);
 	} else {
 		for (let i = 0; i < inventory.length; i++) {
@@ -252,8 +256,8 @@ function GiveItem(item, line, rtrnState) {
 				line2.innerText = _line2;
 				line3.innerText = _line3;
 				line4.innerText = _line4;
-				tooltip.innerText = _tooltip;
 				state = returnState;
+				line.innerText = "The item  was added to your inventory";
 			}, 1000);
 		} else {
 			state = "Swap";
@@ -265,7 +269,7 @@ function GiveItem(item, line, rtrnState) {
 }
 
 function SwapSelect() {
-	state = "Swapping";
+	NewState("Swapping");
 
 	Clear();
 	line1.innerText = "Your inventory:";
@@ -287,6 +291,7 @@ function Swap(num) {
 		line4.innerText = _line4;
 		tooltip.innerText = _tooltip;
 		state = returnState;
+		line.innerText = "The item  was added to your inventory";
 	}, 1000);
 }
 
