@@ -119,7 +119,7 @@ function Button3() {
 			Continue_Casino();
 			break;
 		case "Gamble":
-			PerformGamble(Math.max(Math.floor(score / 2), 1));
+			PerformGamble(Math.max(Math.round(score / 2), 1));
 			break;
 		case "PerformGamble":
 			Leave_Casino();

@@ -17,13 +17,9 @@ function OpenChest() {
 	line2.innerText = "The chest contained an item";
 
 	GenerateItems();
-	foundItem =
-		weightedItemTypes[Math.floor(Math.random() * weightedItemTypes.length)];
+	foundItem = weightedItemTypes[RandInt(0, weightedItemTypes.length - 1)];
 
 	line3.innerText = `You found a "${foundItem.name}"`;
 
-	GiveItem(foundItem, line4, "OpenChest");
-	setTimeout(() => {
-		NewRoom();
-	}, 1000);
+	GiveItem(foundItem, line4, "OpenChest").then(NewRoom(), NewRoom());
 }

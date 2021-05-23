@@ -23,7 +23,7 @@ function Gamble() {
 	line1.innerText = "You sit down at one of the tables";
 	line2.innerText = "The dealer asks how much you want to bet";
 	tooltip.innerText = `1: 1 score  2: 10 score 3: ${Math.max(
-		Math.floor(score / 2),
+		Math.round(score / 2),
 		1
 	)} score`;
 }
@@ -32,7 +32,7 @@ function PerformGamble(num) {
 	NewState("PerformGamble");
 	line1.innerText = "You decided to bet " + num + " score";
 
-	const casinoRoll = Math.floor(Math.random() * weightedCasinoPrizes.length);
+	const casinoRoll = RandInt(0, weightedCasinoPrizes.length - 1);
 	if (weightedCasinoPrizes[casinoRoll] == "Nothing") {
 		line2.innerText = "You won: Nothing";
 		score -= num;
@@ -41,10 +41,10 @@ function PerformGamble(num) {
 		line2.innerText = "You won your score back!";
 		UpdateInfobar();
 	} else {
-		line2.innerText = `Congratulations! You won ${Math.floor(
+		line2.innerText = `Congratulations! You won ${Math.round(
 			num * weightedCasinoPrizes[casinoRoll]
 		)} score!`;
-		score += Math.floor(num * weightedCasinoPrizes[casinoRoll]);
+		score += Math.round(num * weightedCasinoPrizes[casinoRoll]);
 		UpdateInfobar();
 	}
 	line3.innerText = "Do you want to try again?";
@@ -56,7 +56,7 @@ function ReGamble() {
 	line1.innerText = "You decide to try your luck again";
 	line2.innerText = "The dealer asks how much you want to bet";
 	tooltip.innerText = `1: 1 score  2: 10 score 3: ${Math.max(
-		Math.floor(score / 2),
+		Math.round(score / 2),
 		1
 	)} score`;
 }

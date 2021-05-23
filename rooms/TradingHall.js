@@ -15,12 +15,10 @@ function Trade() {
 	NewState("Trade");
 
 	GenerateItems();
-	foundItem =
-		weightedItemTypes[Math.floor(Math.random() * weightedItemTypes.length)];
+	foundItem = weightedItemTypes[RandInt(0, weightedItemTypes.length - 1)];
 	line1.innerText = "The goblin offers you a(n) " + foundItem.name;
 
-	foundItem2 =
-		weightedItemTypes[Math.floor(Math.random() * weightedItemTypes.length)];
+	foundItem2 = weightedItemTypes[RandInt(0, weightedItemTypes.length - 1)];
 	line2.innerText =
 		"Would you like to trade it for either a(n) " +
 		foundItem2.name +
@@ -35,30 +33,16 @@ function completeTrade(num) {
 	Clear();
 	NewState("completeTrade");
 
-	if (num == 1 && inventory.includes(foundItem2)) {
+	if (num == 1 && Inventory_CheckForName(foundItem2.name, false)) {
 		line1.innerText =
 			"You decided to trade a(n) " +
 			foundItem2.name +
 			" for a(n) " +
 			foundItem.name;
 
-		inventory[foundItem2].remove(1);
-		if (inventory[foundItem2].amount <= 0) {
-			inventory[foundItem2] = new Item("empty", 0, "empty", 0);
-		}
-		GiveItem(foundItem, "completeTrade");
-		NewRoom();
-	} else if (
-		////hvit skjerm
-		num == 2 &&
-		inventory.includes(new Item("GoldCoin", 1, "Currency", 10, 2))
-	) {
-		line1.innerText =
-			"You decided to trade a Gold Coin for a(n) " + foundItem.name;
-
-		inventory[new Item("GoldCoin", 1, "Currency", 10, 2)].remove(1);
-		if (inventory[new Item("GoldCoin", 1, "Currency", 10, 2)].amount <= 0) {
-			inventory[new Item("GoldCoin", 1, "Currency", 10, 2)] = new Item(
+		Inventory_CheckForName(foundItem2.name).remove(1);
+		if (Inventory_CheckForName(foundItem2.name).amount <= 0) {
+			Inventory_CheckForName(foundItem2.name, true) = new Item(
 				"empty",
 				0,
 				"empty",
@@ -67,16 +51,35 @@ function completeTrade(num) {
 		}
 		GiveItem(foundItem, "completeTrade");
 		NewRoom();
-	} else if (num == 1 && !inventory.includes(foundItem2)) {
+	} else if (
+		////hvit skjerm
+		num == 2 &&
+		Inventory_CheckForName("GoldCoin", false)
+	) {
+		line1.innerText =
+			"You decided to trade a Gold Coin for a(n) " + foundItem.name;
+
+		Inventory_CheckForName("GoldCoin", true).remove(1);
+		if (Inventory_CheckForName("GoldCoin", true).amount <= 0) {
+			Inventory_CheckForName("GoldCoin", true) = new Item(
+				"empty",
+				0,
+				"empty",
+				0
+			);
+		}
+		GiveItem(foundItem, "completeTrade");
+		NewRoom();
+	} else if (num == 1 && !Inventory_CheckForName(foundItem2.name, false)) {
 		line1.innerText =
 			"The goblin got offended by you not having that item, he sends you to the next room.";
 		NewRoom();
-	} else if (
-		num == 2 &&
-		!inventory.includes(new Item("GoldCoin", 1, "Currency", 10, 2))
-	) {
+	} else if (num == 2 && !Inventory_CheckForName("GoldCoin", false)) {
 		line1.innerText =
 			"The goblin got offended by you not having a Gold Coin, he sends you to the next room.";
+		NewRoom();
+	} else {
+		console.error("TradingHall: 0, continuing to new room");
 		NewRoom();
 	}
 }

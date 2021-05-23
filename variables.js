@@ -21,13 +21,17 @@ let statusTimer = 0;
 let score = 0;
 let state = "NewGame";
 const roomTypes = ["Normal", "ChestRoom", "TradingHall", "BossRoom", "Casino"];
-const roomWeights = [7, 3, 2, 1, 2];
+const roomWeights = [7, 3, 1, 1, 1];
 let weightedRoomTypes = [];
 let hand = new Weapon("Hand", 1, 0);
+
 let hasEncounteredBoss = false;
 let bossHealth = 1000;
 let bossDamage = 10;
-const standardBossHealth = 20;
+const standardBossDamage = 10;
+const standardBossHealth = 40;
+let bossDifficulty = 1;
+
 let returnState = "None";
 
 function CalculateRoomWeights() {
@@ -72,4 +76,3 @@ for (let i = 0; i < casinoPrizes.length; i++) {
 		weightedCasinoPrizes.push(casinoPrizes[i]);
 	}
 }
-console.log(weightedCasinoPrizes);

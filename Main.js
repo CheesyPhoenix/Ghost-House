@@ -17,6 +17,10 @@ function Intro() {
 		for (let i = 0; i < 3; i++) {
 			inventory[i] = new Item("empty", 0, "empty", 0);
 		}
+		hand = new Weapon("Hand", 1, 0);
+		statusEffect = "None";
+		UpdateInfobar();
+
 		Clear();
 		line1.innerText = "Welcome to ghost house!";
 		line2.innerText =
@@ -36,7 +40,7 @@ function OpenInventory() {
 		CloseInventory();
 		return;
 	}
-	if (state != "NewRoom" && state != "Trade") return;
+	if (state == "GameOver" || state == "Delay" || state == "NewGame") return;
 	_line1 = line1.innerText;
 	_line2 = line2.innerText;
 	_line3 = line3.innerText;
@@ -101,7 +105,7 @@ function EnterDoor(num) {
 	state = "EnterDoor";
 	Clear();
 	line1.innerText = `You enter door ${num.toString()}`;
-	let ghostDoor = Math.floor(Math.random() * 3) + 1;
+	let ghostDoor = RandInt(1, 3);
 	if (ghostDoor != num) {
 		line2.innerText = "You got through the door safely";
 		NewRoom();
@@ -115,7 +119,7 @@ function EnterDoor(num) {
 }
 
 function Damage(line, num) {
-	if (statusEffect == "Evasion" && Math.floor(Math.random()) == 1) {
+	if (statusEffect == "Evasion" && RandInt(0, 1) == 1) {
 		line.innerText = `However, you, evaded the attack and took no damage, you now have ${health} health`;
 		healthText.innerText = "Health: " + health;
 		return;
@@ -129,10 +133,7 @@ function Damage(line, num) {
 }
 
 function NewRoom() {
-	state = "Delay";
-	setTimeout(() => {
-		state = "NewRoom";
-	}, 1000);
+	NewState("NewRoom");
 	score++;
 	statusTimer--;
 	if (statusTimer <= 0) {
@@ -153,6 +154,8 @@ function UseItem(itemSlot) {
 		if (health <= 0) {
 			GameOver();
 		}
+		if (inventory[itemSlot].name == "Mysterious Potion") score += 5;
+		UpdateInfobar();
 	} else if (inventory[itemSlot].type == "Luck") {
 		roomWeights[1] += inventory[itemSlot].effect;
 		CalculateRoomWeights();
@@ -160,7 +163,6 @@ function UseItem(itemSlot) {
 		score *= inventory[itemSlot].effect;
 		scoreText.innerText = "Score: " + score;
 	} else if (inventory[itemSlot].type == "EvasionStatusEf") {
-		console.log("evasion");
 		statusEffect = "Evasion";
 		statusTimer = inventory[itemSlot].effect;
 		updateEffects();
@@ -191,8 +193,7 @@ function GameOver() {
 
 function SelectRoom() {
 	CalculateRoomWeights();
-	let room =
-		weightedRoomTypes[Math.floor(Math.random() * weightedRoomTypes.length)];
+	let room = weightedRoomTypes[RandInt(0, weightedRoomTypes.length)];
 	if (room == "Normal") {
 		PickADoor();
 	} else if (room == "ChestRoom") {
@@ -215,7 +216,7 @@ function updateEffects() {
 		"Effect: " + statusEffect + ": " + statusTimer + " turns remaining";
 }
 
-function GiveItem(item, line, rtrnState) {
+async function GiveItem(item, line, rtrnState) {
 	let itemAdded = false;
 	_line1 = line1.innerText;
 	_line2 = line2.innerText;
@@ -260,7 +261,7 @@ function GiveItem(item, line, rtrnState) {
 				line.innerText = "The item  was added to your inventory";
 			}, 1000);
 		} else {
-			state = "Swap";
+			NewState("Swap");
 			line.innerText =
 				"Your inventory is full. Want to swap with another item?";
 			tooltip.innerText = "Press 1 to swap, Press 3 to cancel";
@@ -300,4 +301,12 @@ function NewState(newState) {
 	setTimeout(() => {
 		state = newState;
 	}, 1000);
+}
+
+function Inventory_CheckForName(name, returnItem) {
+	for (let i = 0; i < inventory.length; i++) {
+		if (returnItem && inventory[i].name == name) return inventory[i];
+		if (inventory[i].name == name) return true;
+	}
+	return false;
 }

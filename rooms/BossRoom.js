@@ -2,14 +2,28 @@ function BossRoom() {
 	Clear();
 
 	NewState("BossRoom");
-
+	if (!hasEncounteredBoss && bossDifficulty > 1) {
+		!hasEncounteredBoss;
+		bossHealth = standardBossHealth * bossDifficulty;
+		bossDamage = standardBossDamage * bossDifficulty;
+		line1.innerText =
+			"The room you enter seems different from the others...";
+		line2.innerText =
+			"The room seems for a great distance but you cannot see how far because it's veiled in shadows";
+		line3.innerText =
+			"You see a silhouette of a large creature, similar to the previous boss, but somehow it seems stronger...";
+		line4.innerText = "What should you do?";
+		tooltip.innerText = "1: Attack the creature  2: Run  3: Sneak past it";
+	}
 	if (hasEncounteredBoss) {
 		line1.innerText = "You once again encounter the boss";
 		line2.innerText = `It now has ${bossHealth} health remaining`;
 		line3.innerText = "What do you want to do?";
 		tooltip.innerText = "1: Attack the boss  2: Run  3: Sneak past it";
 	} else {
-		bossHealth = standardBossHealth;
+		!hasEncounteredBoss;
+		bossHealth = standardBossHealth * bossDifficulty;
+		bossDamage = standardBossDamage * bossDifficulty;
 		line1.innerText =
 			"The room you enter seems different from the others...";
 		line2.innerText =
@@ -28,6 +42,10 @@ function AttackBoss() {
 	if (bossHealth <= 0) {
 		line3.innerText = "You managed to kill the boss";
 		NewState("BossKilled");
+
+		bossDifficulty++;
+		//if (bossDifficulty > 3) bossDifficulty = 3; //NOTE: uncomment to disable infinite scaling
+		hasEncounteredBoss = false;
 		setTimeout(() => {
 			BossReward();
 		}, 1500);
@@ -66,10 +84,21 @@ function BossReward() {
 		"After the corpse has fully desintegrated a chest appears infornt of you";
 	line3.innerText = "You open the chest";
 
-	foundItem =
-		weightedLootTable_Rare[
-			Math.floor(Math.random() * weightedLootTable_Rare.length)
-		];
-	GiveItem(foundItem, line4, "BossReward");
-	NewRoom();
+	if (bossDifficulty == 1) {
+		foundItem =
+			weightedLootTable_Rare[
+				RandInt(0, weightedLootTable_Rare.length - 1)
+			];
+	} else if (bossDifficulty == 2) {
+		foundItem =
+			weightedLootTable_Epic[
+				RandInt(0, weightedLootTable_Epic.length - 1)
+			];
+	} else if (bossDifficulty >= 3) {
+		foundItem =
+			weightedLootTable_Legendary[
+				RandInt(0, weightedLootTable_Legendary.length - 1)
+			];
+	}
+	GiveItem(foundItem, line4, "BossReward").then(NewRoom(), NewRoom());
 }
