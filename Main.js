@@ -90,15 +90,21 @@ function Clear() {
 }
 
 function PickADoor() {
+	Clear();
+	if (state == "Starting") {
+		line1.innerText = "You enter the ghost house and approach 3 doors";
+		line2.innerText =
+			"Pick one by pressing 1, 2 or 3, but be careful, there might be a ghost hiding in one of these doors...";
+	} else {
+		line1.innerText =
+			"You tread deeper into the ghost house and approach 3 doors";
+		line2.innerText =
+			"Pick one by pressing 1, 2 or 3, but be careful, there might be a ghost hiding in one of these doors...";
+	}
 	state = "Delay";
 	setTimeout(() => {
 		state = "PickADoor";
 	}, 1000);
-	Clear();
-
-	line1.innerText = "You enter the ghost house and approach 3 doors";
-	line2.innerText =
-		"Pick one by pressing 1, 2 or 3, but be careful, there might be a ghost hiding in one of these doors...";
 }
 
 function EnterDoor(num) {
@@ -205,6 +211,18 @@ function SelectRoom() {
 	} else if (room == "Casino") {
 		EnterCasino();
 	}
+	roomWeights[roomTypes.indexOf(room)]--;
+	let temp;
+	for (
+		temp = RandInt(0, roomWeights.length - 1);
+		temp == roomTypes.indexOf(room);
+		temp = RandInt(0, roomWeights.length)
+	) {}
+	roomWeights[temp]++;
+	CalculateRoomWeights();
+	console.log(temp);
+	console.log(roomTypes.indexOf(room));
+	console.log(roomWeights);
 }
 
 function updateEffects() {

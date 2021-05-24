@@ -21,7 +21,7 @@ let statusTimer = 0;
 let score = 0;
 let state = "NewGame";
 const roomTypes = ["Normal", "ChestRoom", "TradingHall", "BossRoom", "Casino"];
-const roomWeights = [7, 3, 1, 1, 1];
+const roomWeights = [12, 4, 3, 1, 3];
 let weightedRoomTypes = [];
 let hand = new Weapon("Hand", 1, 0);
 

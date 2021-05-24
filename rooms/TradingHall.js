@@ -15,10 +15,16 @@ function Trade() {
 	NewState("Trade");
 
 	GenerateItems();
-	foundItem = weightedItemTypes[RandInt(0, weightedItemTypes.length - 1)];
+	GenerateLootTables();
+	foundItem = weightedLootTable_Rare[RandInt(0, weightedLootTable_Rare.length - 1)];
 	line1.innerText = "The goblin offers you a(n) " + foundItem.name;
 
-	foundItem2 = weightedItemTypes[RandInt(0, weightedItemTypes.length - 1)];
+	for (
+		foundItem2 = weightedItemTypes[RandInt(0, weightedItemTypes.length - 1)];
+		temp == foundItem;
+		temp = weightedItemTypes[RandInt(0, weightedItemTypes.length - 1)]
+	) {}
+	//foundItem2 = weightedItemTypes[RandInt(0, weightedItemTypes.length - 1)];
 	line2.innerText =
 		"Would you like to trade it for either a(n) " +
 		foundItem2.name +
